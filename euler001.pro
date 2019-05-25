@@ -17,7 +17,7 @@
 %
 % Implementation notes:
 % - The cut in testdiv/2 prevents a number from being counted more than once if
-%     if it is perfectly divisible by multiple divisors in the list. Since we
+%     if it is evenly divisible by multiple divisors in the list. Since we
 %     only care about the first successful test we have to prevent Prolog from
 %     backtracking from ;/2 and trying again.
 
