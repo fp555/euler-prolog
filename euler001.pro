@@ -9,29 +9,24 @@
 % I decided to solve this problem without hardcoding either the multiples list
 %   [3,5] or the upper bound (1000), but instead taking them as parameters from
 %   the input query.
-% While I admit my approach does not make one gaze upon its beauty or elegance,
-%   I like how straightforward it looks (and also, it works!).
-% I also liked how this is basically a FizzBuzz variation: if you can solve
-%   this without Google you should also be able to solve FizzBuzz, and
-%   viceversa.
+% I liked how this is basically a FizzBuzz variation: if you can solve this
+%   without Google you should also be able to solve FizzBuzz, and viceversa.
 %
 % Implementation notes:
-% - The cut in testdiv/2 prevents a number from being counted more than once if
-%     if it is evenly divisible by multiple divisors in the list. Since we
-%     only care about the first successful test we have to prevent Prolog from
-%     backtracking from ;/2 and trying again.
+% - testdiv/2 could return multiple solutions, but since we only need to know
+%   if there is one I used limit/2.
 
 /** <examples>
 ?- euler001([3,5],999,S).
 */ % S = 233168
 
 euler001(LD,B,S):-
-    append([B],LD,L),
-    forall(member(D,L),must_be(positive_integer,D)),
+    must_be(positive_integer,B),
+    maplist(must_be(positive_integer),LD),
     sort(LD,SD),
-    findall(X,(between(1,B,X),testdiv(SD,X)),LM),
+    findall(X,(between(1,B,X),limit(1,modql(SD,X))),LM),
     sum_list(LM,S).
 
-testdiv([D|T],X):-
-    (X mod D =:= 0,!);
+modql([D|T],X):-
+    X mod D =:= 0;
     testdiv(T,X).

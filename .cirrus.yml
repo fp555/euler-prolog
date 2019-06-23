@@ -1,10 +1,9 @@
 container:
-    image: swipl:latest
+  image: swipl:latest
     
 test_task:
-    skip: "!changesInclude('*.pro')"
-    test_script:
-        - swipl -q -s euler001.pro -g 'euler001([3,5],999,233168)' -t halt
-        - swipl -q -s euler002.pro -g 'euler002(4000000,2,4613732)' -t halt
-        - swipl -q -s euler003.pro -g 'euler003(600851475143,6857)' -t halt
-    
+  skip: "!changesInclude('*.pro')"
+  test_script:
+    - swipl -q -s euler001.pro -g 'euler001([3,5],999,233168)' -t halt
+    - swipl -q -s euler002.pro -g 'euler002(4000000,2,4613732)' -t halt
+    - swipl -q -s euler003.pro -g 'euler003(600851475143,6857)' -t halt

@@ -1,4 +1,4 @@
-# Project Euler problems in Prolog
+# Project Euler problems in Prolog [![Build Status](https://api.cirrus-ci.com/github/fp555/euler-prolog.svg)](https://cirrus-ci.com/github/fp555/euler-prolog)
 Since my Prolog is *not amazing* it's very likely that my solutions will be inefficient, inelegant or both.
 
 Problems will come as I have time to do them, along with some comments. Feel free to ignore them.
