@@ -21,6 +21,10 @@
 %     only care about the first successful test we have to prevent Prolog from
 %     backtracking from ;/2 and trying again.
 
+/** <examples>
+?- euler001([3,5],999,S).
+*/ % S = 233168
+
 euler001(LD,B,S):-
     append([B],LD,L),
     forall(member(D,L),must_be(positive_integer,D)),
@@ -31,6 +35,3 @@ euler001(LD,B,S):-
 testdiv([D|T],X):-
     (X mod D =:= 0,!);
     testdiv(T,X).
-
-% ?- euler001([3,5],999,S).
-% L = 233168
