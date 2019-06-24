@@ -13,7 +13,7 @@
 %   without Google you should also be able to solve FizzBuzz, and viceversa.
 %
 % Implementation notes:
-% - testdiv/2 could return multiple solutions, but since we only need to know
+% - modql/2 could return multiple solutions, but since we only need to know
 %   if there is one I used limit/2.
 
 /** <examples>
@@ -29,4 +29,4 @@ euler001(LD,B,S):-
 
 modql([D|T],X):-
     X mod D =:= 0;
-    testdiv(T,X).
+    modql(T,X).

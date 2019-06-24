@@ -1,9 +1,27 @@
 container:
   image: swipl:latest
     
-test_task:
+task:
   skip: "!changesInclude('*.pro')"
-  test_script:
-    - swipl -q -s euler001.pro -g 'euler001([3,5],999,233168)' -t halt
-    - swipl -q -s euler002.pro -g 'euler002(4000000,2,4613732)' -t halt
-    - swipl -q -s euler003.pro -g 'euler003(600851475143,6857)' -t halt
+  matrix:
+    - name: test001
+      only_if: "changesInclude(euler001.pro)"
+      env:
+        PRO: euler001.pro
+        PROGOAL: 'euler001([3,5],999,233168)'
+    - name: test002
+      only_if: "changesInclude(euler002.pro)"
+      env:
+        PRO: euler002.pro
+        PROGOAL: 'euler002(4000000,2,4613732)'
+    - name: test003
+      only_if: "changesInclude(euler003.pro)"
+      env:
+        PRO: euler003.pro
+        PROGOAL: 'euler003(600851475143,6857)'
+    - name: test005
+      only_if: "changesInclude(euler005.pro)"
+      env:
+        PRO: euler005.pro
+        PROGOAL: 'euler005([1,20],232792560)'
+  test_script: swipl -q -s $PRO -g $PROGOAL -t halt
