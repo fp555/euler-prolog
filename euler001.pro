@@ -7,14 +7,14 @@
 % =============================================================================
 %
 % I decided to solve this problem without hardcoding either the multiples list
-%   [3,5] or the upper bound (1000), but instead taking them as parameters from
-%   the input query.
-% I liked how this is basically a FizzBuzz variation: if you can solve this
-%   without Google you should also be able to solve FizzBuzz, and viceversa.
+%   [3,5] or the upper bound (1000), but instead taking them as parameters. I
+%   liked how this is basically a FizzBuzz variation: if you can solve this
+%   without Google you should also be able to solve the original version, and
+%   viceversa.
 %
 % Implementation notes:
-% - modql/2 could return multiple solutions, but since we only need to know
-%   if there is one I used limit/2.
+% - modql/2 could return multiple solutions, but since I only need to know if
+%   there is one I used limit/2.
 
 /** <examples>
 ?- euler001([3,5],999,S).

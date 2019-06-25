@@ -18,27 +18,29 @@
 %   definition") to linear (just tail recursion);
 % - I am actually glad that the problem text explicitly said to start with 1
 %   and 2, sparing me the bother of handling the special case;
-% - Initially my solution did not have any cut. I admit Prolog surprised me a
-%   bit when it said there were multiple solutions for this problem! genfib/4
-%   can backtrack to a previous solution considering less Fibonacci numbers.
-%   While the problem does not explicitly ask to consider ALL the terms below
-%   the threshold, I assumed it does and added that cut.
+% - Without that cut Prolog will probably surprise you by saying there are
+%   multiple solutions for this problem: genfib/4 can indeed backtrack to a
+%   previous solution considering less Fibonacci numbers. Note that the
+%   problem does not explicitly ask to consider ALL terms below the threshold;
+% - Lambdas allow you to stop writing additional helper predicates and to
+%   start complaining about how painful to use higher order predicates are
+%   in Prolog.
 
 /** <examples>
 ?- euler002(4000000,2,S).
 */ % S = 4613732
 
+:- use_module(library(yall)).
+
 euler002(B,M,S):-
     maplist(must_be(positive_integer),[B,M]),
     genfib(0,1,B,LF),
-    !,
-    include(modq(M),LF,LN),
+    include({M}/[X]>> =:=(mod(X,M),0),LF,LN),
     sum_list(LN,S).
 
 genfib(N1,N2,B,[N|LF]):-
     N is N1+N2,
     N =< B,
-    genfib(N2,N,B,LF).
+    genfib(N2,N,B,LF),
+    !.
 genfib(_,_,_,[]).
-
-modq(M,X):- X mod M =:= 0.

@@ -7,7 +7,7 @@
 %
 % =============================================================================
 %
-% This problem becomes absolutely trivial once you remember that the least
+% This problem becomes absolutely trivial if you remember that the least
 %   common multiple operation is associative.
 %
 % Implementation notes:
