@@ -18,8 +18,7 @@
 */ % R = 232792560
 
 euler005([L,H],R):-
-    maplist(must_be(positive_integer),[L,H]),
-    findall(X,between(L,H,X),LX),
+    numlist(L,H,LX),
     foldl(lcm,LX,1,R).
 
 lcm(X,Y,Z):-

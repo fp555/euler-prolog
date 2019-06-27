@@ -24,4 +24,9 @@ task:
       env:
         PRO: euler005.pro
         PROGOAL: 'euler005([1,20],232792560)'
+    - name: test006
+      only_if: "changesInclude(euler006.pro)"
+      env:
+        PRO: euler006.pro
+        PROGOAL: 'euler006(100,25164150)'
   test_script: swipl -q -s $PRO -g $PROGOAL -t halt

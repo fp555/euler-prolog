@@ -8,9 +8,9 @@
 % Nothing special about this problem, just straight number crunching. I could
 %   afford being somewhat inefficient since the problem number is not huge, but
 %   even minimal optimization efforts can have a really high payoff:
-% ?- time(euler003(600851475143,X)).
-%   Before: 55,011,006 inferences, 5.611 CPU in 6.296 seconds
-%   Now: 67,150 inferences, 0.012 CPU in 0.012 seconds
+%   ?- time(euler003(600851475143,X)).
+%   - Before: 55,011,006 inferences, 5.611 CPU in 6.296 seconds
+%   - Now: 67,150 inferences, 0.012 CPU in 0.012 seconds
 %
 % Implementation notes:
 % - In divisors/2 I do not really require the divisors list to be sorted, but
