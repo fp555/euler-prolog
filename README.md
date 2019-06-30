@@ -15,5 +15,5 @@ You can [clone](https://help.github.com/en/articles/cloning-a-repository) or [do
 #### Preview links
 Click the link and run the proposed goal:
 
-[Problem 1](http://swish.swi-prolog.org/?code=https://github.com/fp555/euler-prolog/raw/master/euler001.pro) | [Problem 2](http://swish.swi-prolog.org/?code=https://github.com/fp555/euler-prolog/raw/master/euler002.pro) | [Problem 3](http://swish.swi-prolog.org/?code=https://github.com/fp555/euler-prolog/raw/master/euler003.pro) | [Problem 5](http://swish.swi-prolog.org/?code=https://github.com/fp555/euler-prolog/raw/master/euler005.pro) | [Problem 6](http://swish.swi-prolog.org/?code=https://github.com/fp555/euler-prolog/raw/master/euler006.pro)
---- | --- | --- | --- | ---
+[Problem 1](http://swish.swi-prolog.org/?code=https://github.com/fp555/euler-prolog/raw/master/euler001.pro) | [Problem 2](http://swish.swi-prolog.org/?code=https://github.com/fp555/euler-prolog/raw/master/euler002.pro) | [Problem 3](http://swish.swi-prolog.org/?code=https://github.com/fp555/euler-prolog/raw/master/euler003.pro) | [Problem 5](http://swish.swi-prolog.org/?code=https://github.com/fp555/euler-prolog/raw/master/euler005.pro) | [Problem 6](http://swish.swi-prolog.org/?code=https://github.com/fp555/euler-prolog/raw/master/euler006.pro) | [Problem 9](http://swish.swi-prolog.org/?code=https://github.com/fp555/euler-prolog/raw/master/euler009.pro)
+--- | --- | --- | --- | --- | ---
