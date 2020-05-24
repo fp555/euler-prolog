@@ -23,24 +23,24 @@
 %   previous solution considering less Fibonacci numbers. Note that the
 %   problem does not explicitly ask to consider ALL terms below the threshold;
 % - Lambdas allow you to stop writing additional helper predicates and to
-%   start complaining about how painful to use higher order predicates are
-%   in Prolog.
+%   start complaining about how painful to use lambdas are in Prolog.
 
 /** <examples>
 ?- euler002(4000000,2,S).
 */ % S = 4613732
 
+:- use_module(library(clpfd)).
 :- use_module(library(yall)).
 
 euler002(B,M,S):-
-    maplist(must_be(positive_integer),[B,M]),
+    [B,M] ins 1..sup,
     genfib(0,1,B,LF),
-    include({M}/[X]>> =:=(mod(X,M),0),LF,LN),
+    include({M}/[X]>> #=(mod(X,M),0),LF,LN),
     sum_list(LN,S).
 
 genfib(N1,N2,B,[N|LF]):-
-    N is N1+N2,
-    N =< B,
+    N #= N1+N2,
+    N #=< B,
     genfib(N2,N,B,LF),
     !.
 genfib(_,_,_,[]).
