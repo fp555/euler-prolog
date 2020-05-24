@@ -6,25 +6,27 @@
 %
 % =============================================================================
 %
-% I decided to solve this problem without hardcoding either the multiples list
+% I decided to solve this problem without hardcoding either the divisors list
 %   [3,5] or the upper bound (1000), but instead taking them as parameters.
 %   This is basically a FizzBuzz variation: if you can solve this without
 %   Google you should also be able to solve the original version and viceversa.
 %
 % Implementation notes:
-% - modql/2 could return multiple solutions, but since I only need to know if
-%   there is one I used limit/2.
+% - If we let modql/2 backtrack, every number can be counted more than once (at
+%   most length(LD) times), altering the final sum.
 
 /** <examples>
 ?- euler001([3,5],999,S).
 */ % S = 233168
 
+:- use_module(library(clpfd)).
+
 euler001(LD,B,S):-
-    must_be(positive_integer,B),
-    maplist(must_be(positive_integer),LD),
-    sort(LD,SD),
-    findall(X,(between(1,B,X),limit(1,modql(SD,X))),LM),
+    LD ins 1..sup,
+    B in 1..sup,
+    X in 1..B,
+    findall(X,(indomain(X),modql(LD,X)),LM),
     sum_list(LM,S).
 
 modql([D|T],X):-
-    X mod D =:= 0; modql(T,X).
+    (X mod D #= 0, !); modql(T,X).
