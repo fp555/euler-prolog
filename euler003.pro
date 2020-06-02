@@ -5,49 +5,43 @@
 %
 % =============================================================================
 %
-% Nothing special about this problem, just straight number crunching. I could
-%   afford being somewhat inefficient since the problem number is not huge, but
-%   even minimal optimization efforts can have a really high payoff:
-%   ?- time(euler003(600851475143,X)).
-%   - Before: 55,011,006 inferences, 5.611 CPU in 6.296 seconds
-%   - Now: 67,150 inferences, 0.012 CPU in 0.012 seconds
+% Nothing special about this problem, just straight number crunching. Good
+%   thing the problem number is not huge, because prime factorization is a
+%   really inefficient operation.
 %
 % Implementation notes:
-% - In divisors/2 I do not really require the divisors list to be sorted, but
-%   rather to not have duplicates (and sort/2 is shorter than list_to_set/2),
-%   while unfortunately I really do need that stupid append/2;
-% - nextprime/2 is what happens when a programmer is too lazy to write multiple
-%   similar predicates and too prone to conditional operators abuse :).
+% - In nextprime/2, if a divisor is found (skipping 1) we need not bother
+%   trying anything else. Praise failure-driven backtracking!
+% - I was forced to use is/2 with floor/1, while using #=/2 inside the
+%   negated goal brutally kills performance and I am not sure why.
 
 /** <examples>
 ?- euler003(600851475143,X).
 */ % X = 6857
 
+:- use_module(library(clpfd)).
+
 euler003(N,MF):-
-    must_be(positive_integer,N),
+    N in 1..sup,
     pfactor(N,2,LF),
     last(LF,MF).
 
 pfactor(1,_,[]):- !.
 pfactor(N,F,[F|LF]):-
-    N mod F =:= 0,
-    NN is N//F,
+    N mod F #= 0,
+    NN #= N//F,
     pfactor(NN,F,LF),
     !.
 pfactor(N,F,LF):-
     nextprime(F,NP),
-    (NP^2 =< N -> pfactor(N,NP,LF); pfactor(N,N,LF)).
+    (NP^2 #=< N -> pfactor(N,NP,LF); pfactor(N,N,LF)).
 
+nextprime(2,3):- !.
 nextprime(N,P):-
-    (N =:= 2 -> Y is 3; Y is N+2),
-    (isprime(Y) -> P is Y; nextprime(Y,P)).
-
-isprime(N):-
-    divisors(N,D),
-    length(D,2).
-
-divisors(N,L):-
-    M is floor(sqrt(N)),
-	findall([X,Y],(between(1,M,X),N mod X =:= 0,Y is N//X),LLD),
-    append(LLD,LD),
-    sort(LD,L).
+    P #= N+2,
+    M is floor(sqrt(P)),
+    \+ (between(2,M,X),0 is P mod X),
+    !.
+nextprime(N,P):-
+    NN #= N+2,
+    nextprime(NN,P).
