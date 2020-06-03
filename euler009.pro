@@ -48,4 +48,3 @@ euler009(T,P,S):-
     sum(T,#=,S),
     foldl([X,Y,Z]>> #=(X*Y,Z),T,1,P),
     labeling([max,bisect],T).
-    
