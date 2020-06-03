@@ -23,14 +23,19 @@
 %   previous solution considering less Fibonacci numbers. Note that the
 %   problem does not explicitly ask to consider ALL terms below the threshold;
 % - Lambdas allow you to stop writing additional helper predicates and to
-%   start complaining about how painful to use lambdas are in Prolog.
+%   start complaining about how cumbersome to use they are in Prolog.
 
 /** <examples>
 ?- euler002(4000000,2,S).
-*/ % S = 4613732
+*/
 
 :- use_module(library(clpfd)).
 :- use_module(library(yall)).
+:- use_module(library(statistics)).
+
+test:-
+    writeln("euler002(4000000,2,4613732) should be true."),
+    time(euler002(4000000,2,4613732)).
 
 euler002(B,M,S):-
     [B,M] ins 1..sup,

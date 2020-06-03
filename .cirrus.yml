@@ -33,5 +33,5 @@ task:
       only_if: "changesInclude(euler009.pro)"
       env:
         PRO: euler009.pro
-        PROGOAL: 'once(euler009([[200,375,425],31875000],1000))'
+        PROGOAL: 'once(euler009([200,375,425],31875000,1000))'
   test_script: swipl -q -s $PRO -g $PROGOAL -t halt

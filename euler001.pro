@@ -17,9 +17,15 @@
 
 /** <examples>
 ?- euler001([3,5],999,S).
-*/ % S = 233168
+*/
 
 :- use_module(library(clpfd)).
+:- use_module(library(lists)).
+:- use_module(library(statistics)).
+
+test:-
+    writeln("euler001([3,5],999,233168) should be true."),
+    time(euler001([3,5],999,233168)).
 
 euler001(LD,B,S):-
     LD ins 1..sup,
@@ -28,5 +34,7 @@ euler001(LD,B,S):-
     findall(X,(indomain(X),modql(LD,X)),LM),
     sum_list(LM,S).
 
-modql([D|T],X):-
-    (X mod D #= 0, !); modql(T,X).
+modql(LD,X):-
+    member(D,LD),
+    X mod D #= 0,
+    !.

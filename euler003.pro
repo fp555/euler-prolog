@@ -17,9 +17,14 @@
 
 /** <examples>
 ?- euler003(600851475143,X).
-*/ % X = 6857
+*/
 
 :- use_module(library(clpfd)).
+:- use_module(library(statistics)).
+
+test:-
+    writeln("euler003(600851475143,6857) should be true."),
+    time(euler003(600851475143,6857)).
 
 euler003(N,MF):-
     N in 1..sup,

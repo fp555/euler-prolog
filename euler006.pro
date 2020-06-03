@@ -6,12 +6,23 @@
 % =============================================================================
 %
 % There are closed formulas for this:
-%   ∑ k = (n+1)/2
+%   ∑ k = n(n+1)/2
 %   ∑ k^2 = n(n+1)(2n+1)/6
 
 /** <examples>
 ?- euler006(100,R).
-*/ % R = 25164150
+*/
+
+:- use_module(library(clpfd)).
+:- use_module(library(statistics)).
+
+test:-
+    writeln("euler006(100,25164150) should be true."),
+    time(euler006(100,25164150)).
 
 euler006(N,R):-
-    R is (N*(N+1)//2)^2-N*(N+1)*(2*N+1)//6.
+    [N,R] ins 1..sup,
+    SSQ #= (N*(N+1)//2)^2,
+    SQS #= N*(N+1)*(2*N+1)//6,
+    R #= SSQ-SQS.
+    

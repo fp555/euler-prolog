@@ -15,7 +15,14 @@
 
 /** <examples>
 ?- euler005([1,20],R).
-*/ % R = 232792560
+*/
+
+:- use_module(library(apply)).
+:- use_module(library(statistics)).
+
+test:-
+    writeln("euler005([1,20],232792560) should be true."),
+    time(euler005([1,20],232792560)).
 
 euler005([L,H],R):-
     numlist(L,H,LX),
