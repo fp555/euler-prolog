@@ -1,0 +1,28 @@
+name: Problems Test Suite
+on:
+  push:
+    paths:
+      - '**.pro'
+defaults:
+  run:
+    shell: bash
+jobs:
+  set_matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.files.outputs.matrix }}
+    steps:
+       - uses: actions/checkout@v2
+       - id: files
+         run: echo "::set-output name=matrix::{\"problem\":$(ls *.pro | jq -Rsc 'split("\n")[:-1]')}"
+  test_suite:
+    runs-on: ubuntu-latest
+    container: swipl:latest
+    needs: set_matrix
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.set_matrix.outputs.matrix) }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run test
+      run: swipl -s ${{ matrix.problem }} -g test -g halt
