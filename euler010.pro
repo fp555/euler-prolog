@@ -1,6 +1,6 @@
 % Problem 10: Summation of primes
 % -------------------------------
-% The sum of primes below 10 is 17.
+% The sum of all primes below 10 is 17.
 % Find the sum of all primes below 2000000.
 %
 % =============================================================================
@@ -9,10 +9,7 @@
 %   rescue!
 %
 % Implementation notes:
-% - This thing will eat your stack space like crazy. Make sure you give Prolog
-%   plenty of it.
-% - Performance is kind of crappy, but I do not want the code to get uglier
-%   than this.
+% - Low performance and high stack space consumption. ¯\_(ツ)_/¯
 
 /** <examples>
 ?- euler003(2000000,X).

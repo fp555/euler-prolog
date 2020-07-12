@@ -12,9 +12,11 @@ jobs:
     outputs:
       matrix: ${{ steps.files.outputs.matrix }}
     steps:
-       - uses: actions/checkout@v2
-       - id: files
-         run: echo "::set-output name=matrix::{\"problem\":$(ls *.pro | jq -Rsc 'split("\n")[:-1]')}"
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - id: files
+        run: echo "::set-output name=matrix::{\"problem\":$(git diff-tree --no-commit-id --name-only -r ${GITHUB_SHA} | grep .pro | jq -Rsc 'split("\n")[:-1]')}"
   test_suite:
     runs-on: ubuntu-latest
     container: swipl:latest
