@@ -27,4 +27,5 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run test
+      timeout-minutes: 60
       run: swipl -s ${{ matrix.problem }} -g test -g halt

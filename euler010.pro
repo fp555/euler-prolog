@@ -9,16 +9,20 @@
 %   rescue!
 %
 % Implementation notes:
-% - Low performance and high stack space consumption. ¯\_(ツ)_/¯
+% - Low performance, horrible cache locality, does not like multithreading at
+%   all and high stack space consumption (set to 1GB) ¯\_(ツ)_/¯;
+% - convlist/3 is similar to maplist/3, but ignores elements for which the
+%   lambda fails. An attempt to reduce the workload of subtract/3.
 
 /** <examples>
 ?- euler003(2000000,X).
 */
 
+:- set_prolog_flag(stack_limit, 1000000000).
 :- use_module(library(clpfd)).
 :- use_module(library(yall)).
 :- use_module(library(lists),[numlist/3,sum_list/2,subtract/3]).
-:- use_module(library(apply),[maplist/3]).
+:- use_module(library(apply),[convlist/3]).
 :- use_module(library(listing),[portray_clause/1]).
 :- use_module(library(statistics),[time/1]).
 
@@ -36,6 +40,6 @@ sieve(X,[H|P],[H|P]):-
     H*H #> X,
     !.
 sieve(X,[H|TN],[H|TP]):-
-    maplist({H}/[N,D]>> #=(D,H*N),[H|TN],LD),
+    convlist({H,X}/[N,D]>> (D #= H*N, X #> D),[H|TN],LD),
     subtract(TN,LD,R),
     sieve(X,R,TP).
