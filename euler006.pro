@@ -14,10 +14,10 @@
 */
 
 :- use_module(library(clpfd)).
-:- use_module(library(statistics)).
+:- use_module(library(statistics),[time/1]).
 
 test:-
-    writeln("euler006(100,25164150) should be true."),
+    writeln(euler006(100,25164150)),
     time(euler006(100,25164150)).
 
 euler006(N,R):-

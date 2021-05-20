@@ -13,17 +13,16 @@
 %   change it to "divisible-by-X" by passing a different number instead of 2.
 %
 % Implementation notes:
-% - A Fibonacci generator is the classical use case of memoization, slashing
-%   the complexity from exponential (2 recursions per call with the "textbook
-%   definition") to linear (just tail recursion);
+% - Writing a Fibonacci generator that has more than linear complexity should
+%   be considered illegal;
 % - I am actually glad that the problem text explicitly said to start with 1
 %   and 2, sparing me the bother of handling the special case;
-% - Without that cut Prolog will probably surprise you by saying there are
-%   multiple solutions for this problem: genfib/4 can indeed backtrack to a
-%   previous solution considering less Fibonacci numbers. Note that the
-%   problem does not explicitly ask to consider ALL terms below the threshold;
-% - Lambdas allow you to stop writing additional helper predicates and to
-%   start complaining about how cumbersome to use they are in Prolog.
+% - Without that once/1 Prolog will probably surprise you by saying there are
+%   multiple solutions for this problem: genfib/4 will indeed backtrack to a
+%   previous solution considering fewer Fibonacci numbers. Even if the
+%   problem does not explicitly ask to consider ALL terms in the sequence
+%   below the threshold, I assume it means so;
+% - Lambdas rock, but in Prolog their syntax is a disgusting curse.
 
 /** <examples>
 ?- euler002(4000000,2,S).
@@ -31,21 +30,22 @@
 
 :- use_module(library(clpfd)).
 :- use_module(library(yall)).
-:- use_module(library(statistics)).
+:- use_module(library(apply),[include/3]).
+:- use_module(library(lists),[sum_list/2]).
+:- use_module(library(statistics),[time/1]).
 
 test:-
-    writeln("euler002(4000000,2,4613732) should be true."),
+    writeln(euler002(4000000,2,4613732)),
     time(euler002(4000000,2,4613732)).
 
 euler002(B,M,S):-
     [B,M] ins 1..sup,
-    genfib(0,1,B,LF),
+    once(genfib(0,1,B,LF)),
     include({M}/[X]>> #=(mod(X,M),0),LF,LN),
     sum_list(LN,S).
 
 genfib(N1,N2,B,[N|LF]):-
     N #= N1+N2,
     N #=< B,
-    genfib(N2,N,B,LF),
-    !.
+    genfib(N2,N,B,LF).
 genfib(_,_,_,[]).

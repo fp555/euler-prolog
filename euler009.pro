@@ -21,23 +21,23 @@
 */
 
 :- use_module(library(clpfd)).
-:- use_module(library(apply)).
-:- use_module(library(statistics)).
+:- use_module(library(apply),[foldl/4]).
+:- use_module(library(statistics),[time/1]).
 
 test:-
-    writeln("Timing euler009(T,P,1000)..."),
+    writeln(euler009(T,P,1000)),
     time(once(euler009(T1,P1,1000))),
     write("T = "),writeln(T1),
     write("P = "),writeln(P1),
-    writeln("Timing euler009([200,375,425],P,S)..."),
+    writeln(euler009([200,375,425],P,S),
     time(once(euler009([200,375,425],P2,S2))),
     write("P = "),writeln(P2),
     write("S = "),writeln(S2),
-    writeln("Timing euler009(T,31875000,S)..."),
+    writeln(euler009(T,31875000,S)),
     time(once(euler009(T3,31875000,S3))),
     write("S = "),writeln(S3),
     write("T = "),writeln(T3),
-    writeln("euler009([[200, 375, 425], 31875000], 1000) should be true."),
+    writeln(euler009([[200, 375, 425], 31875000], 1000)),
     time(euler009([200,375,425],31875000,1000)).
 
 euler009(T,P,S):-

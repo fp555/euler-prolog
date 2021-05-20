@@ -17,11 +17,12 @@
 ?- euler005([1,20],R).
 */
 
-:- use_module(library(apply)).
-:- use_module(library(statistics)).
+:- use_module(library(lists),[numlist/3]).
+:- use_module(library(apply),[foldl/4]).
+:- use_module(library(statistics),[time/1]).
 
 test:-
-    writeln("euler005([1,20],232792560) should be true."),
+    writeln(euler005([1,20],232792560)),
     time(euler005([1,20],232792560)).
 
 euler005([L,H],R):-

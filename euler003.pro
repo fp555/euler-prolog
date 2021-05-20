@@ -6,24 +6,25 @@
 % =============================================================================
 %
 % Nothing special about this problem, just straight number crunching. Good
-%   thing the problem number is not huge, because prime factorization is a
-%   really inefficient operation.
+%   thing the problem number is not too huge, because prime factorization is a
+%   really hard problem.
 %
 % Implementation notes:
 % - In nextprime/2, if a divisor is found (skipping 1) we need not bother
 %   trying anything else. Praise failure-driven backtracking!
-% - I was forced to use is/2 with floor/1, while using #=/2 inside the
-%   negated goal brutally kills performance and I am not sure why.
+% - I was forced to use is/2 with floor/1, and using #=/2 inside the
+%   negated goal brutally kills performance for some reason.
 
 /** <examples>
 ?- euler003(600851475143,X).
 */
 
 :- use_module(library(clpfd)).
-:- use_module(library(statistics)).
+:- use_module(library(lists),[last/2]).
+:- use_module(library(statistics),[time/1]).
 
 test:-
-    writeln("euler003(600851475143,6857) should be true."),
+    writeln(euler003(600851475143,6857)),
     time(euler003(600851475143,6857)).
 
 euler003(N,MF):-
