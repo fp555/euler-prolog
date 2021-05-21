@@ -9,17 +9,15 @@
 %   rescue!
 %
 % Implementation notes:
-% - Low performance, high CPU usage and high stack space consumption (set to
-% 	1GB). Prime numbers are hard;
-% - That slightly terse convlist/3 is really an Euler's sieve: the k-th
-% 	recursion leaves (after subtract/3) only numbers coprime with the first k
-%   primes.
+% - Low performance, high CPU usage and high stack space consumption. Prime
+%   numbers are hard;
+% - This is really an Euler's sieve: the k-th recursion leaves (after
+%   subtract/3) only numbers coprime with the first k primes.
 
 /** <examples>
 ?- euler010(2000000,X).
 */
 
-:- set_prolog_flag(stack_limit, 1000000000).
 :- use_module(library(clpfd)).
 :- use_module(library(yall)).
 :- use_module(library(lists),[numlist/3,sum_list/2,subtract/3]).

@@ -28,4 +28,4 @@ jobs:
     - uses: actions/checkout@v2
     - name: Run test
       timeout-minutes: 60
-      run: swipl -s ${{ matrix.problem }} -g test -g halt
+      run: swipl --stack-limit=1g -s ${{ matrix.problem }} -g test -t halt
